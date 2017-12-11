@@ -20,6 +20,12 @@ public class Gossip {
 	
 	List<String> nodes;
 	
+	List<String> susceptibleNodes;
+	
+	List<String> infectedNodes;
+	
+	List<String> removedNodes;
+	
 	private Random random;
 	
 	public Gossip(){
