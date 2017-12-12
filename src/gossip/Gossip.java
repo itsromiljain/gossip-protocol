@@ -18,8 +18,6 @@ import java.util.Random;
  */
 public class Gossip {
 	
-	List<String> nodes;
-	
 	List<String> susceptibleNodes;
 	
 	List<String> infectedNodes;
@@ -29,8 +27,10 @@ public class Gossip {
 	private Random random;
 	
 	public Gossip(){
-		this.nodes = getConnectedNodes();
+		this.susceptibleNodes = getConnectedNodes();
 		random = new Random();
+		infectedNodes = new ArrayList<String>();
+		removedNodes = new ArrayList<String>();
 	}
 	
 	
@@ -41,14 +41,14 @@ public class Gossip {
 	
 	
 	private List<String> getConnectedNodes() {
-		nodes = new ArrayList<String>();
+		susceptibleNodes = new ArrayList<String>();
 		File nodeConfigFile = new File("config","nodes");
 
 		try {
 			BufferedReader br = new BufferedReader(new FileReader(nodeConfigFile));
 			String line;
 			while((line = br.readLine()) != null) {
-				nodes.add(line.trim());
+				susceptibleNodes.add(line.trim());
 			}
 			br.close();
 		} catch (FileNotFoundException e) {			
@@ -56,29 +56,40 @@ public class Gossip {
 		} catch (IOException e) {	
 			e.printStackTrace();
 		}
-		return nodes;
+		return susceptibleNodes;
 	}
 	
 	public void pushMessage(String message) {
-		int length = nodes.size();
+		int length = susceptibleNodes.size();
 		while(length>0){
 			String node = getRandomPeerNode();
 			System.out.println(node);
+			// Update the node with the message
+			// Transmit the message
+			// Move the selected node to Infected node.
+			infectedNodes.add(node);
 			length--;
 		}
 	}
 	
 	private String getRandomPeerNode() {
 		String node = null;
-		if(nodes.size() > 0) {
-				int randomIndex = random.nextInt(nodes.size());
-				node = nodes.get(randomIndex);
+		if(susceptibleNodes.size() > 0) {
+				int randomIndex = random.nextInt(susceptibleNodes.size());
+				node = susceptibleNodes.get(randomIndex);
 		} 
 		return node;
 	}
 	
 	public void pullMessage() {
-		
+		int length = susceptibleNodes.size();
+		while(length>0){
+			String node = getRandomPeerNode();
+			// if selected node is infected then only pull the message
+			if(infectedNodes.contains(node)){
+				// get the message from selected node
+			}
+		}
 	}
 
 }
