@@ -39,7 +39,7 @@ public class Gossip {
 		while(itr.hasNext()){
 			String node = itr.next();
 			String recipientNodePort = node.split(":")[1];
-			Thread listenermode = new Thread(new Listener(recipientNodePort));
+			Thread listenermode = new Thread(new MessageListener(recipientNodePort));
 			listenermode.start();
 		}
 	}
