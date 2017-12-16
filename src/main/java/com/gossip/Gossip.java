@@ -45,10 +45,10 @@ public class Gossip {
 	}
 	
 	
-	public static void main (String args[]){
+	/*public static void main (String args[]){
 		Gossip gossip = new Gossip();
 		gossip.pushMessage("Hello World");
-	}
+	}*/
 	
 	
 	private List<String> getConnectedNodes() {
