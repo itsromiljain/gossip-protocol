@@ -1,4 +1,4 @@
-package main.java;
+package com.gossip;
 /**
  * 
  * @author bgupta
@@ -6,7 +6,7 @@ package main.java;
  */
 public class GossipTest {
 
-	public static void main(String[] args) {
+	/*public static void main(String[] args) {
 		System.out.println("Initiating Node 1");
 		//Update IP below for testing
 		GossipNode node1 = new GossipNode("4448");
@@ -19,6 +19,6 @@ public class GossipTest {
 		node1.sendMessage(node2, "Hello");
 		node1.sendMessage(node2, "end");
 		
-	}
+	}*/
 
 }

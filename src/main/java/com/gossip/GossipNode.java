@@ -1,4 +1,4 @@
-package main.java;
+package com.gossip;
 
 import java.io.IOException;
 import java.net.DatagramPacket;
@@ -13,6 +13,10 @@ import java.net.InetAddress;
  */
 public class GossipNode {
 	
+	private String ip;
+	public String getIp() {
+		return ip;
+	}
 	private String port;
 	
 	public String getPort() {
