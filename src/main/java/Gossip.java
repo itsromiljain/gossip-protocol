@@ -1,7 +1,7 @@
  /**
  * 
  */
-package gossip;
+package main.java;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -74,12 +74,14 @@ public class Gossip {
 		while(length>0){
 			String node = getRandomPeerNode();
 			System.out.println("Random Node Selected: "+node);
-			String recipientNodeIp =node.split(":")[0];
-			int recipientNodePort = Integer.parseInt(node.split(":")[1]);
-			// Send message and update the node 
-			sendMessage (recipientNodeIp, recipientNodePort, message);
-			// Move the selected node to Infected node.
-			infectedNodes.add(node);
+			if(!infectedNodes.contains(node)){
+				String recipientNodeIp =node.split(":")[0];
+				int recipientNodePort = Integer.parseInt(node.split(":")[1]);
+				// Send message and update the node 
+				sendMessage (recipientNodeIp, recipientNodePort, message);
+				// Move the selected node to Infected node.
+				infectedNodes.add(node);
+			}
 			length--;
 		}
 	}
