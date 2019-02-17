@@ -23,10 +23,12 @@ public class GossipNode {
 		return port;
 	}
 	
-	public GossipNode(String port) {
+	public GossipNode(String ip, String port) {
 		//Initialize a Node Port
 		this.port=port;
+		this.ip = ip;
 		//Start the Listener thread for PULL.
+		//Thread listenermode = new Thread(new Listener(this.ip, this.port));
 		Thread listenermode = new Thread(new Listener(this.port));
 		listenermode.start();
 	}
@@ -38,8 +40,8 @@ public class GossipNode {
 		try {
 			//Initiate Socket
 			socket = new DatagramSocket();
-			//address = InetAddress.getByName(recipientNode.getIp());
-			address = InetAddress.getLocalHost();
+			address = InetAddress.getByName(recipientNode.getIp());
+			//address = InetAddress.getLocalHost();
 			System.out.println("#HOST ADDRESS# "+address.getHostAddress());
 			buf = msgToSend.getBytes();
 			//Create packet to send to Recipient
@@ -63,12 +65,19 @@ class Listener implements Runnable{
 	private boolean running;
 	private byte[] buf = new byte[1024];
 	private String port;
+	private String ip;
 	
 	/**
 	 * Initialize listener on localhost.
 	 * @param port - port on localhost on which listener will be listening. 
 	 */
+	/*public Listener(String ip, String port) {
+		this.ip = ip;
+		this.port= port;
+	}*/
+	
 	public Listener(String port) {
+		//this.ip = ip;
 		this.port= port;
 	}
 
@@ -80,11 +89,12 @@ class Listener implements Runnable{
 		running = true;
 		try {
 			
+			//socket = new DatagramSocket(Integer.parseInt(port), InetAddress.getByName(this.ip));
 			socket = new DatagramSocket(Integer.parseInt(port));
 			//Wait for receiving message
 			while (running) {
 				System.out.println("#INFO# - Listener Running waiting for message on IP - "+
-						InetAddress.getLocalHost().getHostAddress() + ", Port -"+port);
+						InetAddress.getByName(this.ip).getHostAddress() + ", Port -"+port);
 				//New packet for receiving message. 
 				DatagramPacket packet = new DatagramPacket(buf, buf.length);
 				//receive packet from socket
